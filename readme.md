@@ -34,21 +34,21 @@ weather_project/          # project root (where README.md lives)
 git clone https://github.com/Basartemiz/weather_app
 cd weather_app
 
-### 2️⃣ Create + activate virtual environment
+2️⃣ Create + activate virtual environment
 python3 -m venv venv
 source venv/bin/activate        # macOS/Linux  
 # venv\Scripts\activate         # Windows
 
-### 3️⃣ Install dependencies
+3️⃣ Install dependencies
 pip install -r requirements.txt
 
-### 4️⃣ Configure environment variables
+4️⃣ Configure environment variables
 OPENWEATHER_API_KEY=your_openweather_api_key_here
 
-### 5️⃣ Apply migrations
+5️⃣ Apply migrations
 python manage.py migrate
 
-### 6️⃣ run the server
+6️⃣ run the server
 python manage.py runserver
 
 
@@ -60,3 +60,46 @@ python manage.py runserver
 	•	python-dotenv (env vars)
 	•	SQLite (default DB)
 
+
+# 🌤️ Django Weather API — API Documentation
+
+Base URL: `http://127.0.0.1:8000/`
+
+---
+
+
+
+# 🌐 API Endpoints Overview
+
+## 🔐 Authentication Endpoints
+
+### `login/signup/`  
+Creates a new user account with a username and password.
+
+### `login/token/`  
+Generates a pair of JWT tokens (access and refresh) for login.
+
+### `login/token/refresh/`  
+Refreshes your access token using a valid refresh token.
+
+---
+
+## 👤 User Endpoints
+
+### `user/weather/<city>/`  
+Fetches current weather data for the specified city using the OpenWeather API.  
+Automatically caches the result and logs the query under the authenticated user.
+
+### `/user/queries/`  
+Returns all weather queries previously made by the authenticated user.
+
+---
+
+## 👑 Admin Endpoints
+
+### `/admin_ops/create-user/`  
+Allows an admin user to create a new user account by providing a username and password.
+
+### `/admin_ops/queries/`  
+Returns all weather queries saved by all users in the system.  
+Access is restricted to users in the `admin` group.
